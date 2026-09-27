@@ -1,0 +1,10 @@
+[bot]
+# The token is read from BOT_TOKEN in .env or the process environment.
+
+[settings]
+redis_host = "localhost"
+redis_port = 6379
+redis_username = ""
+redis_password = ""
+throttling_rate = 1.0
+drop_pending_updates = true

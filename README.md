@@ -14,11 +14,9 @@
 
 ## Установка
 
-Создайте репозиторий через **Use this template**, затем выполните:
-
 ```bash
-git clone https://github.com/<your-account>/<your-repository>.git
-cd <your-repository>
+git clone https://github.com/ssharpnesss/telegram-bot-template.git
+cd telegram-bot-template
 poetry install
 ```
 

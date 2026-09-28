@@ -4,6 +4,8 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.redis import DefaultKeyBuilder, RedisStorage
 from redis.asyncio import Redis
+from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram_dialog import setup_dialogs
 
 from app.arguments import parse_arguments
 from app.config import parse_config
@@ -25,18 +27,19 @@ async def main() -> None:
             else None
         ),
     )
-    storage = RedisStorage(
-        redis=redis,
-        key_builder=DefaultKeyBuilder(with_destiny=True),
-    )
+    # storage = RedisStorage(
+    #     redis=redis,
+    #     key_builder=DefaultKeyBuilder(with_destiny=True),
+    # )
 
     bot = Bot(
         token=config.bot.token.get_secret_value(),
         default=DefaultBotProperties(parse_mode="HTML"),
     )
-    dispatcher = Dispatcher(storage=storage)
+    dispatcher = Dispatcher(storage=MemoryStorage())
     register_middlewares(dispatcher, config)
     dispatcher.include_router(get_handlers())
+    setup_dialogs(dispatcher)
 
     try:
         await bot.delete_webhook(drop_pending_updates=config.settings.drop_pending_updates)
